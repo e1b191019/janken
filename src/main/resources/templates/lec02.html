@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.springframework.org/schema/security">
 
 <head>
   <meta charset="utf-8">
@@ -7,8 +7,9 @@
 </head>
 
 <body>
+  <div><a href="/logout">ログアウト</a></div>
   <h1>Lec02 Get!</h1>
-  <div>[[${n}]]</div>
+  <div>[[${login_user}]]</div>
   <p>
     <a href="gu">ぐー</a>
     <a href="ch">ちょき</a>
