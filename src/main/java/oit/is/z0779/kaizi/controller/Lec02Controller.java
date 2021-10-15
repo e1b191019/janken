@@ -9,12 +9,17 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import oit.is.z0779.kaizi.janken.model.Janken;
+import oit.is.z0779.kaizi.janken.model.Entry;
 
 @Controller
 @RequestMapping("/lec02")
 public class Lec02Controller{
+
+  @Autowired
+  private Entry entry;
 
 /**
    *
@@ -25,8 +30,10 @@ public class Lec02Controller{
   @GetMapping("step1")
   public String lec02(ModelMap model, Principal prin){
     String loginUser = prin.getName();
+    this.entry.addUser(loginUser);
     String na = "Hi " + loginUser;
     model.addAttribute("login_user", na);
+    model.addAttribute("entry", this.entry);
     return "lec02.html";
   }
 

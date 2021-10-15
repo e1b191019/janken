@@ -9,6 +9,17 @@
 <body>
   <div><a href="/logout">ログアウト</a></div>
   <h1>Lec02 Get!</h1>
+
+  <a>
+    <div th:if="${entry}">
+      エントリー
+      <ul>
+        <li th:each="user : ${entry.users}">[[${user}]]</li>
+      </ul>
+    </div>
+  </a>
+
+
   <div>[[${login_user}]]</div>
   <p>
     <a href="gu">ぐー</a>
