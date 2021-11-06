@@ -12,27 +12,22 @@
 
   <div>[[${login_user}]]</div>
 
+  <h2>エントリー</h2>
   <p th:if="${users}">
-    <a>エントリー</a>
   <ul>
     <li th:each="user : ${users}"><a th:href="@{/lec02/match(id=${user.id})}"> [[${user.name}]]</a></li>
   </ul>
   </p>
 
-  <p>
-    <a href="/lec02/Gu">ぐー</a>
-    <a href="/lec02/Choki">ちょき</a>
-    <a href="/lec02/Pa">ぱー</a>
+  <h2>アクティブな試合</h2>
+  <p th:if="${matchinfos}">
+  <div th:each="matchinfo : ${matchinfos}">
+    id:[[${matchinfo.id}]] user1:[[${matchinfo.user1}]] user2:[[${matchinfo.user2}]] isActive:[[${matchinfo.isActive}]]
+  </div>
   </p>
 
-  <div>
-    [[${you}]]<br>
-    [[${cpu}]]<br>
-    [[${result}]]<br>
-  </div>
-
+  <h2>試合状況</h2>
   <p th:if="${matches}">
-    <a>試合状況</a>
   <div th:each="match : ${matches}">
     id=[[${match.id}]] user1=[[${match.user1}]] user2=[[${match.user2}]] user1Hand=[[${match.user1Hand}]]
     user2Hand=[[${match.user2Hand}]]

@@ -10,22 +10,13 @@
   <div><a href="/logout">ログアウト</a></div>
   <h1>Match</h1>
 
-  <div th:if="${myname}">
-    自身のユーザ名:[[${myname.name}]]<br>
-    相手のユーザ名:[[${yourname.name}]]<br>
-  </div>
+  <h2>[[${my.name}]] V.S. [[${you.name}]]</h2>
 
   <p>
-    <a th:href="@{/lec02/match1(te=${'Gu'})}">ぐー</a>
-    <a th:href="@{/lec02/match1(te=${'Choki'})}">ちょき</a>
-    <a th:href="@{/lec02/match1(te=${'Pa'})}">ぱー</a>
+    <a th:href="@{/lec02/match1(te=${'Gu'},my=${my.id},you=${you.id})}">ぐー</a>
+    <a th:href="@{/lec02/match1(te=${'Choki'},my=${my.id},you=${you.id})}">ちょき</a>
+    <a th:href="@{/lec02/match1(te=${'Pa'},my=${my.id},you=${you.id})}">ぱー</a>
   </p>
-
-  <div th:if="${r}">
-    [[${y}]]<br>
-    [[${c}]]<br>
-    [[${r}]]<br>
-  </div>
 
   <a href="/lec02/step2">もどる</a>
 </body>
