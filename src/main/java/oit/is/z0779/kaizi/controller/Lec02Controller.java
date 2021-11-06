@@ -19,6 +19,8 @@ import oit.is.z0779.kaizi.janken.model.User;
 import oit.is.z0779.kaizi.janken.model.UserMapper;
 import oit.is.z0779.kaizi.janken.model.Match;
 import oit.is.z0779.kaizi.janken.model.MatchMapper;
+import oit.is.z0779.kaizi.janken.model.MatchInfo;
+import oit.is.z0779.kaizi.janken.model.MatchInfoMapper;
 
 @Controller
 @RequestMapping("/lec02")
@@ -28,6 +30,8 @@ public class Lec02Controller{
   UserMapper userMapper;
   @Autowired
   MatchMapper matchMapper;
+  @Autowired
+  MatchInfoMapper matchinfoMapper;
   @Autowired
   private Entry entry;
 
@@ -49,22 +53,28 @@ public class Lec02Controller{
     model.addAttribute("login_user",login_user );
     ArrayList<User> users = userMapper.selectAllUser();
     ArrayList<Match> matches = matchMapper.selectAllMatch();
+    ArrayList<MatchInfo> matchinfos = matchinfoMapper.selectAllMatchInfoTrue();
     model.addAttribute("users", users);
     model.addAttribute("matches",matches);
+    model.addAttribute("matchinfos",matchinfos);
     return "lec02.html";
   }
 
   @GetMapping("match")
-  public String match(@RequestParam Integer id,ModelMap model){
-    User myname = userMapper.selectById(id);
-    User yourname = userMapper.selectById(id);
-    model.addAttribute("myname",myname);
-    model.addAttribute("yourname",yourname);
+  public String match(@RequestParam Integer id,ModelMap model,Principal prin){
+    User my = userMapper.selectByName(prin.getName());
+    User you = userMapper.selectById(id);
+    model.addAttribute("my",my);
+    model.addAttribute("you",you);
     return "match.html";
   }
 
   @GetMapping("match1")
-  public String match1(@RequestParam String te,ModelMap model){
+  public String match1(@RequestParam String te,@RequestParam Integer my,@RequestParam Integer you,ModelMap model,Principal prin){
+    String loginUser = prin.getName();
+    String login_user = "Hi "+loginUser;
+    model.addAttribute("login_user",login_user );
+
     Janken janken = new Janken();
 
     String y = "あなたの手 " + te;
@@ -75,14 +85,24 @@ public class Lec02Controller{
     model.addAttribute("c",c);
     model.addAttribute("r",r);
 
+    model.addAttribute("my",my);
+    model.addAttribute("you",you);
+
     Match match = new Match();
-    match.setUser1(2);
-    match.setUser2(1);
+    match.setUser1(my);
+    match.setUser2(you);
     match.setUser1Hand(te);
     match.setUser2Hand(janken.getHand());
     matchMapper.insertMatch(match);
 
-    return "match.html";
+    MatchInfo matchinfo = new MatchInfo();
+    matchinfo.setUser1(my);
+    matchinfo.setUser2(you);
+    matchinfo.setUser1Hand(te);
+    matchinfo.setIsActive(true);
+    matchinfoMapper.insertMatchInfo(matchinfo);
+
+    return "wait.html";
   }
 
   @GetMapping("Gu")
