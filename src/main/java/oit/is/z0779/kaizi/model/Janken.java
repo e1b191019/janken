@@ -4,7 +4,7 @@ import java.util.Random;
 
 public class Janken{
 
-  String[] hands = { "Gu", "Ch", "Pa" };
+  String[] hands = { "Gu", "Choki", "Pa" };
   String hand;
   String draw = "Draw";
   String win = "You Win!";
@@ -20,18 +20,18 @@ public class Janken{
   }
 
   public String Result(String yhand){
-    if(yhand.equals("gu")){
+    if(yhand.equals("Gu")){
       if(hand.equals("Gu")){
         return draw;
-      }else if(hand.equals("Ch")){
+      }else if(hand.equals("Choki")){
         return win;
       }else{
         return lose;
       }
-    }else if(yhand.equals("ch")){
+    }else if(yhand.equals("Choki")){
       if(hand.equals("Gu")){
         return lose;
-      }else if(hand.equals("Ch")){
+      }else if(hand.equals("Choki")){
         return draw;
       }else{
         return win;
@@ -39,7 +39,7 @@ public class Janken{
     }else{
       if(hand.equals("Gu")){
         return win;
-      }else if(hand.equals("Ch")){
+      }else if(hand.equals("Choki")){
         return lose;
       }else{
         return draw;
